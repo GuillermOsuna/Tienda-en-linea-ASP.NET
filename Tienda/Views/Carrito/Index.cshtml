@@ -1,0 +1,54 @@
+﻿@model Tienda.Models.CarritoModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Mi carrito</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Codigo
+        </th>
+        <th>
+           Nombre
+        </th>
+        <th>
+           Precio
+        </th>
+        <th>
+           Cantidad
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Articulos) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Codigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cantidad)
+        </td>
+        <td>
+            @using (Html.BeginForm("Quitar", "Carrito", FormMethod.Post))
+            { 
+                <input type="hidden" name="Codigo" value="@item.Codigo">
+    <button type="submit" class="btn btn-default" aria-label="Left Align">
+        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+    </button>
+            }
+        </td>
+    </tr>
+}
+
+</table>
+<p>@Html.ActionLink("Comprar!!", "Comprar", "Carrito", null, new { @class="btn btn-lg btn-success"})</p>

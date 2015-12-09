@@ -1,0 +1,56 @@
+﻿@model Tienda.Models.CarritoModel
+@{
+    ViewBag.Title = "Comprar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Gracias por su preferencia</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Codigo
+        </th>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Precio
+        </th>
+        <th>
+            Cantidad
+        </th>
+        <th>
+            Importe
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Articulos)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad)
+            </td>
+            <td>
+           @Html.DisplayFor(modelItem => item.Importe)
+            </td>
+        </tr>
+    }
+    
+</table>
+<p>Su total es @Model.Importe</p>
+<p>Favor de depositar a : 1111-2222-3333-4444 en banco Banamex</p>
+@using (Html.BeginForm("Finalizar", "Carrito", FormMethod.Post))
+{ 
+    @Html.CheckBox("Acepto",false)<label for="Acepto">Acepto pagar el dinero a Gunshot por esta compra </label>
+    <input type="submit" value="Finalizar Compra"/>
+}

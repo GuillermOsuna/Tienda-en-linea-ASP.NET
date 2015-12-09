@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Tienda.Models.ProductoModels>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Productos</h2>
+
+
+@foreach (var item in Model)
+{
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <img src="~/uploads/@item.Foto" alt="@item.Descripcion">
+            <div class="caption">
+                <br>
+                <h3>@item.Nombre <br><span class="label label-danger">@item.Precio.ToString("C") </span></h3>
+                <br>
+                <p>@*@<a href="#" class="btn btn-success" role="button">Comprar</a>*@</p>
+                @Html.ActionLink("Ver detalles", "Details", new { id = item.ID })
+                <p></p>
+               @using (Html.BeginForm("Agregar", "Carrito", FormMethod.Post))
+               {
+                    <input type="hidden" name="Codigo" value=@item.ProductoId />
+                    <input type="hidden" name="Precio" value=@item.Precio />
+                    <input type="hidden" name="Cantidad" value=1 />
+                    <input type="submit" value="Agregar" class="btn btn-success btn-lg" />
+                }
+            </div>
+        </div>
+    </div>
+}
+
+     
